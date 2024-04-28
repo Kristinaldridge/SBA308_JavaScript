@@ -78,8 +78,8 @@ const CourseInfo = {
     }
   ];
   
-  
-  // Loop through assignments to calculate sum of points_possible
+
+  // #1 Loop. Loop through assignments to calculate sum of points_possible for Assignments ID 1, 2, & 3 
   
   let pointsPossibleSum = 0;
 
@@ -90,7 +90,7 @@ const CourseInfo = {
    console.log("Sum of points_possible:", pointsPossibleSum);
 
   
-// Calculate sum of scores for learner ID 125 using reduce
+// Calculate sum of scores for learner ID 125 using reduce & if..else #1
 
 const scoreSumLearner125 = LearnerSubmissions.reduce((sum, submission) => {
     // If learner_id is 125, add the score to the sum
@@ -110,6 +110,20 @@ console.log("Sum of scores for learner_id 125:", scoreSumLearner125);
   
   console.log("Average:", average);
 
+
+  // #2 Loop. Loop through assignment to calculate possible points from Assignments ID 1 & 2. Use break or contiue as a control. 
+
+
+//Calculate sum of scores for learner ID 132 on or before 2023-01-27 using reduce & if..else #2
+  const scoreSumLearner132 = LearnerSubmissions.reduce((sum, submission)=>{
+    if (submission.learner_id === 132 && submission.submission.submitted_at <= "2023-01-27")
+    {return sum + submission.submission.score;
+    } else {
+        return sum; 
+    }
+  }, 0);
+
+console.log( "Sum of scores for learner-id 132:", scoreSumLearner132)
 
 
   
