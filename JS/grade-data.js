@@ -172,7 +172,7 @@ function scoreSumLearner132(submissions) {
 }
 
 const totalScore = scoreSumLearner132(LearnerSubmissions);
-console.log(totalScore);
+console.log( "Total score with 10 off for late due date", totalScore);
 
     
 // Calculate weighted average for learner_id 132
@@ -182,6 +182,21 @@ console.log(totalScore);
 
 
    
-    /// write try catch statement 
+    /// write try catch statement. Did not understand how to do. 
+    
     // create array to display data
-    //read me
+
+    function getLearnerData(id, score, assignment) {
+      const result = {};
+
+      result.id = id
+      result.score = score
+      result.assignment_id = assignment;
+
+      return result; 
+    }
+
+    const learnerTwo = getLearnerData ("132", 82.5, 1);
+    console.log(learnerTwo)
+
+   
