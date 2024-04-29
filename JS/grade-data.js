@@ -34,7 +34,7 @@ const CourseInfo = {
   };
   
   // The provided learner submission data.
-  //data is located in a...
+  //data is located in a object array
   const LearnerSubmissions = [
     {
       learner_id: 125,
@@ -87,17 +87,17 @@ const CourseInfo = {
       pointsPossibleSum += assignment.points_possible;
   });
   
-   console.log("Sum of points_possible:", pointsPossibleSum);
+   console.log(" Sum of points_possible:", pointsPossibleSum);
 
   
-// Calculate sum of scores for learner ID 125 using reduce & if..else #1
+// #1 if..else statement. Calculate sum of scores for learner ID 125 using reduce
 
 const scoreSumLearner125 = LearnerSubmissions.reduce((sum, submission) => {
-    // If learner_id is 125, add the score to the sum
+   
     if (submission.learner_id === 125) {
         return sum + submission.submission.score;
     } else {
-        return sum; // Otherwise, return the sum unchanged
+        return sum; 
     }
 }, 0);
 
@@ -111,10 +111,28 @@ console.log("Sum of scores for learner_id 125:", scoreSumLearner125);
   console.log("Average:", average);
 
 
-  // #2 Loop. Loop through assignment to calculate possible points from Assignments ID 1 & 2. Use break or contiue as a control. 
+  // #2 Loop. Loop through assignment to calculate possible points from Assignments ID 1 & 2 (excluding assignment 3 bc of future due date). Used break as a control. 
+  
+  function sumPointsPossibleTwo(assignments) {
+    let totalPoints = 0;
+    let i = 0;
+    while (i < assignments.length) { 
 
+      if (assignments[i].due_at <= "2023-02-27") {
+        totalPoints += assignments[i].points_possible;
+      } else {
 
-//Calculate sum of scores for learner ID 132 on or before 2023-01-27 using reduce & if..else #2
+        break;
+      }
+      i++;
+    }
+    return totalPoints;
+  }
+  
+  const totalPoints = sumPointsPossibleTwo(AssignmentGroup.assignments);
+console.log("Total points possible (excluding non current due dates):", totalPoints);
+
+// #2 if..else statement. Calculate sum of scores for learner ID 132 on or before 2023-01-27 using reduce
   const scoreSumLearner132 = LearnerSubmissions.reduce((sum, submission)=>{
     if (submission.learner_id === 132 && submission.submission.submitted_at <= "2023-01-27")
     {return sum + submission.submission.score;
@@ -123,7 +141,15 @@ console.log("Sum of scores for learner_id 125:", scoreSumLearner125);
     }
   }, 0);
 
-console.log( "Sum of scores for learner-id 132:", scoreSumLearner132)
+console.log( "Sum of scores for learner_id: 132:", scoreSumLearner132)
 
 
+    // Calculate  weighted average for learner_id 132
+    const averageSecond = (scoreSumLearner132 / totalPoints) * 100
   
+    console.log("Average_132:", averageSecond);
+
+
+    /// fix 10% with id 132
+    /// write try catch statement 
+    // create array to display data
