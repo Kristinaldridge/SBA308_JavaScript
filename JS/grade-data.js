@@ -90,7 +90,7 @@ const CourseInfo = {
    console.log(" Sum of points_possible:", pointsPossibleSum);
 
   
-// #1 if..else statement. Calculate sum of scores for learner ID 125 using reduce
+// #1 if..else statement. Calculate sum of scores for learner_id 125 using reduce
 
 const scoreSumLearner125 = LearnerSubmissions.reduce((sum, submission) => {
    
@@ -132,24 +132,56 @@ console.log("Sum of scores for learner_id 125:", scoreSumLearner125);
   const totalPoints = sumPointsPossibleTwo(AssignmentGroup.assignments);
 console.log("Total points possible (excluding non current due dates):", totalPoints);
 
-// #2 if..else statement. Calculate sum of scores for learner ID 132 on or before 2023-01-27 using reduce
-  const scoreSumLearner132 = LearnerSubmissions.reduce((sum, submission)=>{
-    if (submission.learner_id === 132 && submission.submission.submitted_at <= "2023-01-27")
-    {return sum + submission.submission.score;
-    } else {
-        return sum; 
+
+// #2 if..else statement. Atttempt 1. Calculate sum of scores for learner ID 132. deduct 10% if outside due date. Could not get this code to work. 
+
+//function scoreSumLearner132(submissions) {
+  //let totalScore = 0;
+  //for (let i= 0; i < submissions.length; i++) {
+    //const submission = submissions[i];
+    //if (submission.learner_id === 132 && submission.submission.submitted_at == "2023-03-07"){
+      //totalScore += submission.submission.score * 0.1;
+   //} else {
+    //totalScore += submission.submission.score;
+
+   //}
+  //}
+//return totalScore;
+//}
+
+//const totalScore = scoreSumLearner132(LearnerSubmissions);
+//console.log (totalScore)
+
+// #2 if..else statement. Attempt 2. Needed Help to Calculate sum of scores for learner_id 132. deduct 10% if after due date
+function scoreSumLearner132(submissions) {
+  let totalScore = 0;
+  for (let i = 0; i < submissions.length; i++) {
+    const submission = submissions[i];
+    const assignment = AssignmentGroup.assignments.find(assignment => assignment.id === submission.assignment_id);
+    if (submission.learner_id === 132) {
+      const dueDate = new Date(assignment.due_at);
+      const submittedDate = new Date(submission.submission.submitted_at);
+      if (submittedDate <= dueDate) {
+        totalScore += submission.submission.score;
+      } else if (submittedDate >= new Date("2023-02-27")) {
+        totalScore += submission.submission.score * 0.9;
+      }
     }
-  }, 0);
+  }
+  return totalScore;
+}
 
-console.log( "Sum of scores for learner_id: 132:", scoreSumLearner132)
+const totalScore = scoreSumLearner132(LearnerSubmissions);
+console.log(totalScore);
 
-
-    // Calculate  weighted average for learner_id 132
-    const averageSecond = (scoreSumLearner132 / totalPoints) * 100
+    
+// Calculate weighted average for learner_id 132
+    const averageSecond = (totalScore/ totalPoints) * 100
   
     console.log("Average_132:", averageSecond);
 
 
-    /// fix 10% with id 132
+   
     /// write try catch statement 
     // create array to display data
+    //read me
